@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dawah Pioneer Books — Ebooks for $2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --emerald-950:#06211F;
+    --emerald-800:#0B3D3B;
+    --emerald-700:#0F4A46;
+    --emerald-600:#14584F;
+    --gold-600:#A9821E;
+    --gold-500:#C9A227;
+    --gold-300:#E4C767;
+    --cream-100:#F6EFDD;
+    --cream-200:#EFE4C8;
+    --ink-900:#1B1B16;
+    --line: rgba(201,162,39,0.35);
+    --shadow: 0 20px 60px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--emerald-950);
+    color:var(--cream-100);
+    font-family:'Lora', serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Amiri', serif;
+    font-weight:700;
+    letter-spacing:0.01em;
+    margin:0;
+  }
+  .arabic{
+    font-family:'Scheherazade New', serif;
+    direction:rtl;
+    unicode-bidi:isolate;
+  }
+  .eyebrow{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    color:var(--gold-300);
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    font-size:0.8rem;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .container{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- Geometric star pattern (signature motif) ---------- */
+  .star-field{
+    position:absolute;
+    inset:0;
+    opacity:0.10;
+    pointer-events:none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23C9A227' stroke-width='1'%3E%3Cpath d='M60 6 L74 34 L106 30 L86 56 L106 82 L74 78 L60 106 L46 78 L14 82 L34 56 L14 30 L46 34 Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:120px 120px;
+  }
+  .khatam{
+    animation: spin 90s linear infinite;
+    transform-origin:center;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .khatam{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  .divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    margin:8px 0;
+    color:var(--gold-500);
+  }
+  .divider .line{
+    height:1px;
+    flex:1;
+    background:linear-gradient(90deg, transparent, var(--line), transparent);
+  }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(6,33,31,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px;
+    max-width:1120px; margin:0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Amiri', serif; font-size:1.3rem; font-weight:700;
+    color:var(--cream-100);
+  }
+  .brand svg{width:30px;height:30px; flex:0 0 auto;}
+  .navlinks{display:flex; gap:30px; font-size:0.95rem; list-style:none; margin:0; padding:0;}
+  .navlinks a{text-decoration:none; opacity:0.85; transition:opacity .2s, color .2s;}
+  .navlinks a:hover{opacity:1; color:var(--gold-300);}
+  .cart-btn{
+    display:flex; align-items:center; gap:8px;
+    background:var(--gold-500); color:var(--emerald-950);
+    border:none; padding:10px 18px; border-radius:999px;
+    font-family:'Lora'; font-weight:600; cursor:pointer;
+    font-size:0.9rem;
+    transition:transform .15s, background .2s;
+  }
+  .cart-btn:hover{ background:var(--gold-300); transform:translateY(-1px); }
+  .cart-btn:focus-visible, button:focus-visible, a:focus-visible{
+    outline:2px solid var(--gold-300); outline-offset:3px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:110px 28px 90px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .hero .arabic-hero{
+    font-size:5.5rem;
+    color:var(--gold-500);
+    line-height:1;
+    margin-bottom:18px;
+    text-shadow:0 0 40px rgba(201,162,39,0.25);
+  }
+  .hero h1{
+    font-size:clamp(2rem, 4.5vw, 3.4rem);
+    color:var(--cream-100);
+    max-width:820px;
+    margin:0 auto 20px;
+  }
+  .hero h1 em{ color:var(--gold-300); font-style:normal; }
+  .hero p.lead{
+    max-width:560px; margin:0 auto 34px;
+    font-size:1.15rem; color:var(--cream-200); opacity:0.9;
+  }
+  .hero-ctas{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+  .btn-primary{
+    background:var(--gold-500); color:var(--emerald-950);
+    padding:15px 32px; border-radius:999px; text-decoration:none;
+    font-weight:600; font-family:'Lora'; display:inline-block;
+    transition:transform .15s, background .2s;
+    border:none; cursor:pointer; font-size:1rem;
+  }
+  .btn-primary:hover{background:var(--gold-300); transform:translateY(-2px);}
+  .btn-ghost{
+    border:1px solid var(--line); color:var(--cream-100);
+    padding:14px 30px; border-radius:999px; text-decoration:none;
+    font-family:'Lora'; transition:border-color .2s, background .2s;
+  }
+  .btn-ghost:hover{border-color:var(--gold-300); background:rgba(201,162,39,0.08);}
+
+  .price-note{
+    margin-top:26px; font-family:'Cormorant Garamond'; font-style:italic;
+    color:var(--gold-300); font-size:1.05rem;
+  }
+
+  /* ---------- Ayat marquee ---------- */
+  .ayat-strip{
+    background:var(--emerald-800);
+    padding:26px 0;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+    white-space:nowrap;
+  }
+  .ayat-track{
+    display:inline-flex;
+    gap:60px;
+    animation:scroll-left 48s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .ayat-track{animation:none;} }
+  @keyframes scroll-left{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  .ayat-chip{
+    display:inline-flex; align-items:baseline; gap:12px;
+    font-family:'Cormorant Garamond'; font-style:italic; color:var(--cream-200);
+    font-size:1.05rem;
+  }
+  .ayat-chip .arabic{ font-family:'Scheherazade New'; color:var(--gold-300); font-size:1.3rem; font-style:normal;}
+  .ayat-chip .ref{ color:var(--gold-500); font-size:0.85rem; }
+
+  /* ---------- Section shell ---------- */
+  section{ padding:90px 0; position:relative; }
+  .section-head{ text-align:center; max-width:640px; margin:0 auto 56px; }
+  .section-head h2{ font-size:clamp(1.7rem,3vw,2.4rem); margin-top:10px; color:var(--cream-100); }
+  .section-head p{ color:var(--cream-200); opacity:0.85; margin-top:14px; }
+
+  /* ---------- Ayat feature blocks ---------- */
+  .ayat-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:26px;
+  }
+  .ayat-card{
+    background:linear-gradient(180deg, var(--emerald-700), var(--emerald-800));
+    border:1px solid var(--line);
+    border-radius:8px 8px 60px 60px / 8px 8px 40px 40px;
+    padding:36px 26px 30px;
+    text-align:center;
+    position:relative;
+  }
+  .ayat-card::before{
+    content:"";
+    position:absolute; top:14px; left:50%; transform:translateX(-50%);
+    width:26px; height:26px;
+    background:var(--gold-500);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    opacity:0.9;
+  }
+  .ayat-card .arabic{ font-size:1.7rem; color:var(--gold-300); margin:26px 0 14px; }
+  .ayat-card p.meaning{ font-family:'Cormorant Garamond'; font-style:italic; font-size:1.08rem; color:var(--cream-100); }
+  .ayat-card .ref{ display:block; margin-top:16px; font-size:0.82rem; letter-spacing:0.08em; color:var(--gold-500); text-transform:uppercase; }
+
+  /* ---------- Products (mihrab cards) ---------- */
+  .products-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px;
+  }
+  .book-card{
+    background:var(--cream-100);
+    color:var(--ink-900);
+    border-radius:70px 70px 10px 10px / 46px 46px 10px 10px;
+    padding:44px 26px 28px;
+    position:relative;
+    box-shadow:var(--shadow);
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    border:1px solid rgba(0,0,0,0.05);
+  }
+  .book-card .arch-motif{
+    position:absolute; top:20px; left:50%; transform:translateX(-50%);
+    width:70%; height:2px; background:var(--gold-500); opacity:0.5;
+  }
+  .book-cover{
+    width:96px; height:96px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--emerald-600), var(--emerald-950));
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px; border:2px solid var(--gold-500);
+  }
+  .book-cover svg{width:44px;height:44px;}
+  .book-card h3{ font-size:1.25rem; margin-bottom:6px; }
+  .book-card .cat{
+    font-family:'Cormorant Garamond'; font-style:italic; color:var(--gold-600);
+    font-size:0.95rem; margin-bottom:12px;
+  }
+  .book-card p.desc{ font-size:0.92rem; color:#3a382f; margin-bottom:20px; min-height:66px; }
+  .book-foot{
+    display:flex; align-items:center; justify-content:space-between;
+    width:100%; margin-top:auto; padding-top:14px; border-top:1px dashed rgba(0,0,0,0.15);
+  }
+  .price{ font-family:'Amiri'; font-weight:700; font-size:1.4rem; color:var(--emerald-800); }
+  .add-btn{
+    background:var(--emerald-800); color:var(--cream-100);
+    border:none; padding:9px 18px; border-radius:999px; cursor:pointer;
+    font-family:'Lora'; font-weight:600; font-size:0.88rem;
+    transition:background .2s, transform .15s;
+  }
+  .add-btn:hover{ background:var(--emerald-600); transform:translateY(-1px); }
+  .add-btn.added{ background:var(--gold-600); }
+
+  /* ---------- Why / persuasion section ---------- */
+  .why-wrap{
+    display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+  }
+  .why-list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:26px; }
+  .why-list li{ display:flex; gap:18px; }
+  .why-num{
+    font-family:'Amiri'; color:var(--gold-500); font-size:1.6rem; flex:0 0 auto;
+    width:44px; height:44px; border:1px solid var(--line); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .why-list h4{ font-family:'Amiri'; font-size:1.1rem; margin-bottom:6px; color:var(--cream-100); }
+  .why-list p{ margin:0; color:var(--cream-200); opacity:0.85; font-size:0.95rem; }
+
+  .quote-panel{
+    background:var(--emerald-800);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:44px 38px;
+    position:relative;
+    overflow:hidden;
+  }
+  .quote-panel::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23C9A227' stroke-width='1'%3E%3Cpath d='M60 6 L74 34 L106 30 L86 56 L106 82 L74 78 L60 106 L46 78 L14 82 L34 56 L14 30 L46 34 Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:100px 100px; opacity:0.06;
+  }
+  .quote-panel blockquote{
+    margin:0; font-family:'Cormorant Garamond'; font-style:italic;
+    font-size:1.35rem; color:var(--cream-100); position:relative; z-index:1;
+  }
+  .quote-panel cite{
+    display:block; margin-top:18px; font-style:normal; font-size:0.85rem;
+    color:var(--gold-300); letter-spacing:0.06em;
+  }
+
+  /* ---------- Testimonials ---------- */
+  .testi-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  .testi-card{
+    background:var(--emerald-700); border:1px solid var(--line); border-radius:14px;
+    padding:30px; font-size:0.95rem;
+  }
+  .testi-card p{ color:var(--cream-200); }
+  .testi-name{ display:flex; align-items:center; gap:12px; margin-top:18px; }
+  .avatar{ width:38px; height:38px; border-radius:50%; background:var(--gold-500); }
+  .testi-name strong{ font-family:'Amiri'; color:var(--cream-100); font-size:0.95rem; }
+  .testi-name span{ display:block; font-size:0.8rem; color:var(--gold-300); }
+
+  /* ---------- Cart drawer ---------- */
+  .overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,0.5);
+    opacity:0; pointer-events:none; transition:opacity .25s; z-index:90;
+  }
+  .overlay.open{ opacity:1; pointer-events:auto; }
+  .drawer{
+    position:fixed; top:0; right:0; height:100%; width:min(400px,92vw);
+    background:var(--emerald-950); border-left:1px solid var(--line);
+    transform:translateX(100%); transition:transform .3s ease; z-index:100;
+    display:flex; flex-direction:column; padding:28px;
+  }
+  .drawer.open{ transform:translateX(0); }
+  .drawer-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
+  .drawer-head h3{ font-family:'Amiri'; font-size:1.3rem; }
+  .close-btn{ background:none; border:none; color:var(--cream-100); font-size:1.4rem; cursor:pointer; }
+  #cart-items{ flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:16px; }
+  .cart-empty{ color:var(--cream-200); opacity:0.7; font-family:'Cormorant Garamond'; font-style:italic; text-align:center; margin-top:40px; }
+  .cart-row{ display:flex; justify-content:space-between; align-items:center; gap:10px; border-bottom:1px solid var(--line); padding-bottom:12px; }
+  .cart-row .title{ font-size:0.9rem; }
+  .cart-row .rm{ background:none; border:none; color:var(--gold-500); cursor:pointer; font-size:0.8rem; text-decoration:underline; }
+  .drawer-foot{ border-top:1px solid var(--line); padding-top:20px; margin-top:14px; }
+  .total-row{ display:flex; justify-content:space-between; font-family:'Amiri'; font-size:1.15rem; margin-bottom:16px; }
+  .checkout-btn{ width:100%; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--emerald-800);
+    border-top:1px solid var(--line);
+    padding:60px 0 30px;
+    position:relative;
+  }
+  .footer-grid{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px;
+    padding-bottom:40px; border-bottom:1px solid var(--line);
+  }
+  .footer-grid h5{ font-family:'Amiri'; color:var(--gold-300); margin-bottom:14px; font-size:1rem; }
+  .footer-grid ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; font-size:0.9rem; }
+  .footer-grid a{ text-decoration:none; color:var(--cream-200); opacity:0.85; }
+  .footer-grid a:hover{ color:var(--gold-300); opacity:1; }
+  .footer-bottom{ display:flex; justify-content:space-between; padding-top:22px; font-size:0.8rem; color:var(--cream-200); opacity:0.65; flex-wrap:wrap; gap:10px;}
+
+  /* toast */
+  .toast{
+    position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--gold-500); color:var(--emerald-950); padding:12px 22px; border-radius:999px;
+    font-family:'Lora'; font-weight:600; font-size:0.9rem; opacity:0; transition:all .3s; z-index:110;
+    pointer-events:none;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  @media (max-width: 880px){
+    .navlinks{ display:none; }
+    .ayat-grid, .testi-grid{ grid-template-columns:1fr; }
+    .why-wrap{ grid-template-columns:1fr; }
+    .footer-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brand">
+      <svg viewBox="0 0 120 120" class="khatam"><g fill="none" stroke="#C9A227" stroke-width="2"><path d="M60 6 L74 34 L106 30 L86 56 L106 82 L74 78 L60 106 L46 78 L14 82 L34 56 L14 30 L46 34 Z"/></g></svg>
+      Dawah Pioneer Books
+    </div>
+    <ul class="navlinks">
+      <li><a href="#collection">Collection</a></li>
+      <li><a href="#ayat">Ayat</a></li>
+      <li><a href="#why">Why Read</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+    </ul>
+    <button class="cart-btn" id="open-cart" aria-haspopup="dialog">🛒 Cart <span id="cart-count">(0)</span></button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="star-field"></div>
+  <div class="container">
+    <div class="eyebrow">Sadaqah jariyah • knowledge that keeps on giving</div>
+    <div class="arabic-hero">اقرأ</div>
+    <h1>Every ebook, a door to <em>more light</em> — for just $2</h1>
+    <p class="lead">Ebooks written with care to nourish the heart and the mind, priced so that knowledge is never out of reach.</p>
+    <div class="hero-ctas">
+      <a href="#collection" class="btn-primary">Browse the collection</a>
+      <a href="#ayat" class="btn-ghost">Read the ayat that inspire us</a>
+    </div>
+    <p class="price-note">"Whoever takes a path in search of knowledge, Allah makes easy for him a path to Paradise." — narrated by Muslim (paraphrased)</p>
+  </div>
+</section>
+
+<div class="ayat-strip">
+  <div class="ayat-track" id="ayat-track"></div>
+</div>
+
+<section id="ayat">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">What guides us</div>
+      <h2>Knowledge, a light you never stop lighting</h2>
+      <p>Three reminders from the Quran on why learning — and passing it on — carries real weight.</p>
+    </div>
+    <div class="ayat-grid">
+      <div class="ayat-card">
+        <p class="arabic">هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ</p>
+        <p class="meaning">"Are those who know equal to those who do not know?" A question meant to be sat with, not skimmed past.</p>
+        <span class="ref">Surah Az-Zumar, 39:9</span>
+      </div>
+      <div class="ayat-card">
+        <p class="arabic">وَقُل رَّبِّ زِدْنِي عِلْمًا</p>
+        <p class="meaning">"And say: My Lord, increase me in knowledge." A short prayer you can carry with you through every page turned.</p>
+        <span class="ref">Surah Ta-Ha, 20:114</span>
+      </div>
+      <div class="ayat-card">
+        <p class="arabic">اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ</p>
+        <p class="meaning">"Read, in the name of your Lord who created." The very first revelation wasn't a command to build or conquer — it was to read.</p>
+        <span class="ref">Surah Al-Alaq, 96:1</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="collection">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">The collection</div>
+      <h2>Ebooks at $2, without cutting corners</h2>
+      <p>PDF and EPUB formats, delivered instantly by email after purchase.</p>
+    </div>
+    <div class="products-grid" id="products-grid"></div>
+  </div>
+</section>
+
+<section id="why" style="background:var(--emerald-800); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="container">
+    <div class="why-wrap">
+      <div>
+        <div class="eyebrow">Why this price, why now</div>
+        <h2 style="margin:10px 0 30px; font-size:clamp(1.6rem,3vw,2.1rem);">$2 is the price of a tea — for knowledge that stays with you</h2>
+        <ul class="why-list">
+          <li>
+            <div class="why-num">1</div>
+            <div>
+              <h4>An act that keeps on giving</h4>
+              <p>The Prophet ﷺ taught that knowledge passed on is among the deeds whose reward doesn't stop. Every ebook you read — and share — can become that.</p>
+            </div>
+          </li>
+          <li>
+            <div class="why-num">2</div>
+            <div>
+              <h4>Accessible to everyone, no excuses</h4>
+              <p>A low price isn't a lack of ambition — it's a choice: that no one should be left without these words for lack of means.</p>
+            </div>
+          </li>
+          <li>
+            <div class="why-num">3</div>
+            <div>
+              <h4>A moment for you, every day</h4>
+              <p>A few pages before sleep, a reminder between tasks — these ebooks are built to fit into a busy life, not add weight to it.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="quote-panel">
+        <blockquote>"Whoever seeks knowledge, his previous sins are forgiven with every step he takes."</blockquote>
+        <cite>Reminder narrated, cited by At-Tirmidhi (paraphrased)</cite>
+        <blockquote style="margin-top:34px;">"The scholars are the heirs of the prophets."</blockquote>
+        <cite>Reminder narrated, cited by Abu Dawud (paraphrased)</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Readers say</div>
+      <h2>What our readers are saying</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <p>"I thought $2 was too little for real substance — I was wrong. I finished 'Pillars of the Heart' in a weekend and I still go back to it."</p>
+        <div class="testi-name"><div class="avatar"></div><div><strong>Amina R.</strong><span>Reader since 2025</span></div></div>
+      </div>
+      <div class="testi-card">
+        <p>"The short format lets me read between prayers without losing my place. Exactly what I needed."</p>
+        <div class="testi-name"><div class="avatar"></div><div><strong>Yusuf B.</strong><span>3 ebooks purchased</span></div></div>
+      </div>
+      <div class="testi-card">
+        <p>"I gifted 'Morning and Evening Duas' to my mother. She's already read it twice. A simple gift, but one that stays."</p>
+        <div class="testi-name"><div class="avatar"></div><div><strong>Sarah K.</strong><span>Returning customer</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:14px;">
+          <svg viewBox="0 0 120 120" style="width:24px;height:24px;"><g fill="none" stroke="#C9A227" stroke-width="2"><path d="M60 6 L74 34 L106 30 L86 56 L106 82 L74 78 L60 106 L46 78 L14 82 L34 56 L14 30 L46 34 Z"/></g></svg>
+          Dawah Pioneer Books
+        </div>
+        <p style="color:var(--cream-200); opacity:0.8; font-size:0.9rem; max-width:320px;">Short, affordable ebooks to nourish faith and mind, one ayah at a time.</p>
+      </div>
+      <div>
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="#collection">Collection</a></li>
+          <li><a href="#ayat">Ayat</a></li>
+          <li><a href="#why">Why Read</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Ebook delivery</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Dawah Pioneer Books. All rights reserved.</span>
+      <span>Translations and reminders are presented in paraphrase, for educational purposes.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-label="Cart">
+  <div class="drawer-head">
+    <h3>Your cart</h3>
+    <button class="close-btn" id="close-cart" aria-label="Close cart">✕</button>
+  </div>
+  <div id="cart-items"><p class="cart-empty">Your cart is empty for now.</p></div>
+  <div class="drawer-foot">
+    <div class="total-row"><span>Total</span><span id="cart-total">$0</span></div>
+    <button class="btn-primary checkout-btn" id="checkout-btn">Checkout</button>
+  </div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const books = [
+    { id:'b1', title:"Pillars of the Heart", cat:"Spirituality", desc:"A short guide to the foundations of faith, explained simply for everyday life.", price:2 },
+    { id:'b2', title:"Morning and Evening Duas", cat:"Supplications", desc:"An illustrated collection of essential duas, with transliteration and meaning.", price:2 },
+    { id:'b3', title:"Stories of the Prophets, Vol. 1", cat:"Stories", desc:"Five prophetic stories told with clarity, for young and old readers alike.", price:2 },
+    { id:'b4', title:"The Seeker's Path", cat:"Self-Development", desc:"How to learn something every day without feeling overwhelmed, inspired by prophetic tradition.", price:2 },
+    { id:'b5', title:"Patience and Gratitude", cat:"Spirituality", desc:"A small book for getting through hardship with a settled heart.", price:2 },
+    { id:'b6', title:"Ramadan, Step by Step", cat:"Practical", desc:"A simple plan for a more intentional month of fasting.", price:2 },
+  ];
+
+  const ayatMarquee = [
+    { ar:"وَقُل رَّبِّ زِدْنِي عِلْمًا", en:"My Lord, increase me in knowledge", ref:"20:114" },
+    { ar:"اقْرَأْ بِاسْمِ رَبِّكَ", en:"Read, in the name of your Lord", ref:"96:1" },
+    { ar:"هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ", en:"Are those who know equal to those who do not know?", ref:"39:9" },
+    { ar:"إِنَّمَا يَخْشَى اللَّهَ مِنْ عِبَادِهِ الْعُلَمَاءُ", en:"Among His servants, it is the scholars who fear Allah", ref:"35:28" },
+  ];
+
+  const bookIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="#E4C767" stroke-width="1.5"><path d="M4 4h9a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V4Z"/><path d="M16 4h4v16h-4"/></svg>`;
+
+  // render products
+  const grid = document.getElementById('products-grid');
+  grid.innerHTML = books.map(b => `
+    <div class="book-card">
+      <div class="arch-motif"></div>
+      <div class="book-cover">${bookIcon}</div>
+      <h3>${b.title}</h3>
+      <div class="cat">${b.cat}</div>
+      <p class="desc">${b.desc}</p>
+      <div class="book-foot">
+        <span class="price">$${b.price}</span>
+        <button class="add-btn" data-id="${b.id}">Add to cart</button>
+      </div>
+    </div>
+  `).join('');
+
+  // render ayat marquee (duplicated for seamless loop)
+  const track = document.getElementById('ayat-track');
+  const marqueeHTML = ayatMarquee.map(a => `
+    <span class="ayat-chip"><span class="arabic">${a.ar}</span> — ${a.en} <span class="ref">(${a.ref})</span></span>
+  `).join('');
+  track.innerHTML = marqueeHTML + marqueeHTML;
+
+  // cart state (in-memory only)
+  let cart = [];
+
+  function renderCart(){
+    const itemsEl = document.getElementById('cart-items');
+    const countEl = document.getElementById('cart-count');
+    const totalEl = document.getElementById('cart-total');
+    countEl.textContent = `(${cart.length})`;
+    if(cart.length === 0){
+      itemsEl.innerHTML = '<p class="cart-empty">Your cart is empty for now.</p>';
+    } else {
+      itemsEl.innerHTML = cart.map((b, i) => `
+        <div class="cart-row">
+          <span class="title">${b.title}</span>
+          <span style="display:flex; align-items:center; gap:10px;">
+            <span>$${b.price}</span>
+            <button class="rm" data-index="${i}">remove</button>
+          </span>
+        </div>
+      `).join('');
+    }
+    const total = cart.reduce((s,b)=> s + b.price, 0);
+    totalEl.textContent = `$${total}`;
+  }
+
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(()=> t.classList.remove('show'), 2200);
+  }
+
+  grid.addEventListener('click', (e) => {
+    const btn = e.target.closest('.add-btn');
+    if(!btn) return;
+    const book = books.find(b => b.id === btn.dataset.id);
+    cart.push(book);
+    renderCart();
+    showToast(`"${book.title}" added — $${book.price}`);
+    btn.textContent = "Added ✓";
+    btn.classList.add('added');
+    setTimeout(()=>{ btn.textContent = "Add to cart"; btn.classList.remove('added'); }, 1400);
+  });
+
+  document.getElementById('cart-items').addEventListener('click', (e) => {
+    const rm = e.target.closest('.rm');
+    if(!rm) return;
+    cart.splice(Number(rm.dataset.index), 1);
+    renderCart();
+  });
+
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('overlay');
+  function openCart(){ drawer.classList.add('open'); overlay.classList.add('open'); }
+  function closeCart(){ drawer.classList.remove('open'); overlay.classList.remove('open'); }
+  document.getElementById('open-cart').addEventListener('click', openCart);
+  document.getElementById('close-cart').addEventListener('click', closeCart);
+  overlay.addEventListener('click', closeCart);
+
+  document.getElementById('checkout-btn').addEventListener('click', () => {
+    if(cart.length === 0){ showToast("Your cart is empty"); return; }
+    const total = cart.reduce((s,b)=> s + b.price, 0);
+    showToast(`Simulated checkout — total $${total}. Connect a real payment provider (Stripe, PayPal) to go live.`);
+  });
+
+  renderCart();
+</script>
+
+</body>
+</html>
