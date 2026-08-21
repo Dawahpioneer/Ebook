@@ -563,7 +563,10 @@
   <div id="cart-items"><p class="cart-empty">Your cart is empty for now.</p></div>
   <div class="drawer-foot">
     <div class="total-row"><span>Total</span><span id="cart-total">$0</span></div>
-    <button class="btn-primary checkout-btn" id="checkout-btn">Checkout</button>
+    <p style="font-size:0.78rem; color:var(--cream-200); opacity:0.8; margin-bottom:12px; text-align:center;">
+      🇨🇦 Payment via Interac e-Transfer (Canada only)
+    </p>
+    <button class="btn-primary checkout-btn" id="checkout-btn">Proceed to Payment</button>
   </div>
 </aside>
 
@@ -672,8 +675,7 @@
 
   document.getElementById('checkout-btn').addEventListener('click', () => {
     if(cart.length === 0){ showToast("Your cart is empty"); return; }
-    const total = cart.reduce((s,b)=> s + b.price, 0);
-    showToast(`Simulated checkout — total $${total}. Connect a real payment provider (Stripe, PayPal) to go live.`);
+    window.open("https://docs.google.com/forms/d/e/1FAIpQLSdHzNkv1zbpw_FcAG9SkmRrwOjus_zR6pq-uspJvGvoQYUc5w/viewform?usp=header&hl=en", "_blank");
   });
 
   renderCart();
