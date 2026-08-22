@@ -58,8 +58,6 @@
     margin:0 auto;
     padding:0 28px;
   }
-
-  /* ---------- Geometric star pattern (signature motif) ---------- */
   .star-field{
     position:absolute;
     inset:0;
@@ -77,7 +75,6 @@
     html{scroll-behavior:auto;}
   }
   @keyframes spin{ to{ transform:rotate(360deg); } }
-
   .divider{
     display:flex;
     align-items:center;
@@ -91,8 +88,20 @@
     flex:1;
     background:linear-gradient(90deg, transparent, var(--line), transparent);
   }
-
-  /* ---------- Nav ---------- */
+  .donation-bar{
+    background: linear-gradient(90deg, var(--gold-600), var(--gold-500), var(--gold-600));
+    color: var(--emerald-950);
+    text-align:center;
+    padding:12px 20px;
+    font-family:'Lora';
+    font-weight:600;
+    font-size:0.92rem;
+    letter-spacing:0.01em;
+    position:relative;
+    z-index:60;
+  }
+  .donation-bar strong{ text-decoration:underline; text-underline-offset:2px; }
+  .donation-bar .flag{ margin:0 4px; }
   header{
     position:sticky; top:0; z-index:50;
     background:rgba(6,33,31,0.85);
@@ -125,8 +134,6 @@
   .cart-btn:focus-visible, button:focus-visible, a:focus-visible{
     outline:2px solid var(--gold-300); outline-offset:3px;
   }
-
-  /* ---------- Hero ---------- */
   .hero{
     position:relative;
     padding:110px 28px 90px;
@@ -167,13 +174,35 @@
     font-family:'Lora'; transition:border-color .2s, background .2s;
   }
   .btn-ghost:hover{border-color:var(--gold-300); background:rgba(201,162,39,0.08);}
-
   .price-note{
     margin-top:26px; font-family:'Cormorant Garamond'; font-style:italic;
     color:var(--gold-300); font-size:1.05rem;
   }
-
-  /* ---------- Ayat marquee ---------- */
+  .impact-card{
+    margin: 46px auto 0;
+    max-width:640px;
+    background: var(--emerald-800);
+    border: 1px solid var(--gold-500);
+    border-radius:16px;
+    padding:26px 30px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    text-align:left;
+    box-shadow: var(--shadow);
+  }
+  .impact-card .icon{
+    flex:0 0 auto;
+    width:52px; height:52px;
+    border-radius:50%;
+    background: var(--gold-500);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem;
+  }
+  .impact-card h4{
+    font-family:'Amiri'; color:var(--gold-300); font-size:1.05rem; margin-bottom:4px;
+  }
+  .impact-card p{ margin:0; font-size:0.9rem; color:var(--cream-200); opacity:0.9; }
   .ayat-strip{
     background:var(--emerald-800);
     padding:26px 0;
@@ -198,14 +227,10 @@
   }
   .ayat-chip .arabic{ font-family:'Scheherazade New'; color:var(--gold-300); font-size:1.3rem; font-style:normal;}
   .ayat-chip .ref{ color:var(--gold-500); font-size:0.85rem; }
-
-  /* ---------- Section shell ---------- */
   section{ padding:90px 0; position:relative; }
   .section-head{ text-align:center; max-width:640px; margin:0 auto 56px; }
   .section-head h2{ font-size:clamp(1.7rem,3vw,2.4rem); margin-top:10px; color:var(--cream-100); }
   .section-head p{ color:var(--cream-200); opacity:0.85; margin-top:14px; }
-
-  /* ---------- Ayat feature blocks ---------- */
   .ayat-grid{
     display:grid; grid-template-columns:repeat(3,1fr); gap:26px;
   }
@@ -228,8 +253,6 @@
   .ayat-card .arabic{ font-size:1.7rem; color:var(--gold-300); margin:26px 0 14px; }
   .ayat-card p.meaning{ font-family:'Cormorant Garamond'; font-style:italic; font-size:1.08rem; color:var(--cream-100); }
   .ayat-card .ref{ display:block; margin-top:16px; font-size:0.82rem; letter-spacing:0.08em; color:var(--gold-500); text-transform:uppercase; }
-
-  /* ---------- Products (mihrab cards) ---------- */
   .products-grid{
     display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px;
   }
@@ -273,8 +296,6 @@
   }
   .add-btn:hover{ background:var(--emerald-600); transform:translateY(-1px); }
   .add-btn.added{ background:var(--gold-600); }
-
-  /* ---------- Why / persuasion section ---------- */
   .why-wrap{
     display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
   }
@@ -287,7 +308,6 @@
   }
   .why-list h4{ font-family:'Amiri'; font-size:1.1rem; margin-bottom:6px; color:var(--cream-100); }
   .why-list p{ margin:0; color:var(--cream-200); opacity:0.85; font-size:0.95rem; }
-
   .quote-panel{
     background:var(--emerald-800);
     border:1px solid var(--line);
@@ -310,8 +330,6 @@
     display:block; margin-top:18px; font-style:normal; font-size:0.85rem;
     color:var(--gold-300); letter-spacing:0.06em;
   }
-
-  /* ---------- Testimonials ---------- */
   .testi-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
   .testi-card{
     background:var(--emerald-700); border:1px solid var(--line); border-radius:14px;
@@ -322,8 +340,6 @@
   .avatar{ width:38px; height:38px; border-radius:50%; background:var(--gold-500); }
   .testi-name strong{ font-family:'Amiri'; color:var(--cream-100); font-size:0.95rem; }
   .testi-name span{ display:block; font-size:0.8rem; color:var(--gold-300); }
-
-  /* ---------- Cart drawer ---------- */
   .overlay{
     position:fixed; inset:0; background:rgba(0,0,0,0.5);
     opacity:0; pointer-events:none; transition:opacity .25s; z-index:90;
@@ -347,8 +363,19 @@
   .drawer-foot{ border-top:1px solid var(--line); padding-top:20px; margin-top:14px; }
   .total-row{ display:flex; justify-content:space-between; font-family:'Amiri'; font-size:1.15rem; margin-bottom:16px; }
   .checkout-btn{ width:100%; }
-
-  /* ---------- Footer ---------- */
+  .cart-donation-note{
+    display:none;
+    background: rgba(201,162,39,0.12);
+    border:1px solid var(--gold-500);
+    border-radius:10px;
+    padding:10px 14px;
+    font-size:0.8rem;
+    color:var(--gold-300);
+    margin-bottom:14px;
+    text-align:center;
+    line-height:1.4;
+  }
+  .cart-donation-note.show{ display:block; }
   footer{
     background:var(--emerald-800);
     border-top:1px solid var(--line);
@@ -364,8 +391,6 @@
   .footer-grid a{ text-decoration:none; color:var(--cream-200); opacity:0.85; }
   .footer-grid a:hover{ color:var(--gold-300); opacity:1; }
   .footer-bottom{ display:flex; justify-content:space-between; padding-top:22px; font-size:0.8rem; color:var(--cream-200); opacity:0.65; flex-wrap:wrap; gap:10px;}
-
-  /* toast */
   .toast{
     position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px);
     background:var(--gold-500); color:var(--emerald-950); padding:12px 22px; border-radius:999px;
@@ -373,16 +398,21 @@
     pointer-events:none;
   }
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-
   @media (max-width: 880px){
     .navlinks{ display:none; }
     .ayat-grid, .testi-grid{ grid-template-columns:1fr; }
     .why-wrap{ grid-template-columns:1fr; }
     .footer-grid{ grid-template-columns:1fr; }
+    .impact-card{ flex-direction:column; text-align:center; }
+    .donation-bar{ font-size:0.8rem; }
   }
 </style>
 </head>
 <body>
+
+<div class="donation-bar">
+  <span class="flag">🇵🇸</span> 1/3 of every order over <strong>$3</strong> is donated to Palestinian relief and our local mosque <span class="flag">🕌</span>
+</div>
 
 <header>
   <nav>
@@ -412,6 +442,14 @@
       <a href="#ayat" class="btn-ghost">Read the ayat that inspire us</a>
     </div>
     <p class="price-note">"Whoever takes a path in search of knowledge, Allah makes easy for him a path to Paradise." — narrated by Muslim (paraphrased)</p>
+
+    <div class="impact-card">
+      <div class="icon">🤲</div>
+      <div>
+        <h4>Your purchase gives back</h4>
+        <p>For every order over $3, one third of the proceeds is donated directly to Palestinian relief efforts and our local mosque. Buying knowledge here also means supporting the ummah.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -451,7 +489,7 @@
     <div class="section-head">
       <div class="eyebrow">The collection</div>
       <h2>Ebooks at $3, without cutting corners</h2>
-      <p>PDF and EPUB formats, delivered instantly by email after purchase.</p>
+      <p>PDF and EPUB formats, delivered instantly by email after purchase. Remember: every order over $3 sends a third of the proceeds to Palestinian relief and our local mosque.</p>
     </div>
     <div class="products-grid" id="products-grid"></div>
   </div>
@@ -474,8 +512,8 @@
           <li>
             <div class="why-num">2</div>
             <div>
-              <h4>Accessible to everyone, no excuses</h4>
-              <p>A low price isn't a lack of ambition — it's a choice: that no one should be left without these words for lack of means.</p>
+              <h4>Your order helps twice</h4>
+              <p>One third of every order over $3 goes straight to Palestinian relief and our local mosque — so your purchase supports both your own learning and the wider ummah.</p>
             </div>
           </li>
           <li>
@@ -528,7 +566,7 @@
           <svg viewBox="0 0 120 120" style="width:24px;height:24px;"><g fill="none" stroke="#C9A227" stroke-width="2"><path d="M60 6 L74 34 L106 30 L86 56 L106 82 L74 78 L60 106 L46 78 L14 82 L34 56 L14 30 L46 34 Z"/></g></svg>
           Dawah Pioneer Books
         </div>
-        <p style="color:var(--cream-200); opacity:0.8; font-size:0.9rem; max-width:320px;">Short, affordable ebooks to nourish faith and mind, one ayah at a time.</p>
+        <p style="color:var(--cream-200); opacity:0.8; font-size:0.9rem; max-width:320px;">Short, affordable ebooks to nourish faith and mind, one ayah at a time. 🇵🇸 One third of every order over $3 supports Palestinian relief and our local mosque.</p>
       </div>
       <div>
         <h5>Navigation</h5>
@@ -562,6 +600,9 @@
   <div id="cart-items"><p class="cart-empty">Your cart is empty for now.</p></div>
   <div class="drawer-foot">
     <div class="total-row"><span>Total</span><span id="cart-total">$0</span></div>
+    <div class="cart-donation-note" id="cart-donation-note">
+      🇵🇸 <strong id="donation-amount">$0</strong> of this order (1/3) will be donated to Palestinian relief and our local mosque 🕌
+    </div>
     <p style="font-size:0.78rem; color:var(--cream-200); opacity:0.8; margin-bottom:12px; text-align:center;">
       🇨🇦 Payment via Interac e-Transfer (Canada only)
     </p>
@@ -591,7 +632,6 @@
 
   const bookIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="#E4C767" stroke-width="1.5"><path d="M4 4h9a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V4Z"/><path d="M16 4h4v16h-4"/></svg>`;
 
-  // render products
   const grid = document.getElementById('products-grid');
   grid.innerHTML = books.map(b => `
     <div class="book-card">
@@ -607,20 +647,20 @@
     </div>
   `).join('');
 
-  // render ayat marquee (duplicated for seamless loop)
   const track = document.getElementById('ayat-track');
   const marqueeHTML = ayatMarquee.map(a => `
     <span class="ayat-chip"><span class="arabic">${a.ar}</span> — ${a.en} <span class="ref">(${a.ref})</span></span>
   `).join('');
   track.innerHTML = marqueeHTML + marqueeHTML;
 
-  // cart state (in-memory only)
   let cart = [];
 
   function renderCart(){
     const itemsEl = document.getElementById('cart-items');
     const countEl = document.getElementById('cart-count');
     const totalEl = document.getElementById('cart-total');
+    const donationNote = document.getElementById('cart-donation-note');
+    const donationAmount = document.getElementById('donation-amount');
     countEl.textContent = `(${cart.length})`;
     if(cart.length === 0){
       itemsEl.innerHTML = '<p class="cart-empty">Your cart is empty for now.</p>';
@@ -637,6 +677,14 @@
     }
     const total = cart.reduce((s,b)=> s + b.price, 0);
     totalEl.textContent = `$${total}`;
+
+    if(total > 3){
+      const donation = (total / 3);
+      donationAmount.textContent = `$${donation.toFixed(2)}`;
+      donationNote.classList.add('show');
+    } else {
+      donationNote.classList.remove('show');
+    }
   }
 
   function showToast(msg){
