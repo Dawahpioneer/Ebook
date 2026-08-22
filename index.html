@@ -119,7 +119,7 @@
     color:var(--cream-100);
   }
   .brand svg{width:30px;height:30px; flex:0 0 auto;}
-  .navlinks{display:flex; gap:30px; font-size:0.95rem; list-style:none; margin:0; padding:0;}
+  .navlinks{display:flex; gap:22px; font-size:0.9rem; list-style:none; margin:0; padding:0;}
   .navlinks a{text-decoration:none; opacity:0.85; transition:opacity .2s, color .2s;}
   .navlinks a:hover{opacity:1; color:var(--gold-300);}
   .cart-btn{
@@ -265,10 +265,24 @@
     box-shadow:var(--shadow);
     display:flex; flex-direction:column; align-items:center; text-align:center;
     border:1px solid rgba(0,0,0,0.05);
+    overflow:visible;
   }
   .book-card .arch-motif{
     position:absolute; top:20px; left:50%; transform:translateX(-50%);
     width:70%; height:2px; background:var(--gold-500); opacity:0.5;
+  }
+  .new-badge{
+    position:absolute;
+    top:12px; left:-8px;
+    background:var(--gold-500);
+    color:var(--emerald-950);
+    font-family:'Lora'; font-weight:700; font-size:0.68rem;
+    letter-spacing:0.05em;
+    padding:4px 14px;
+    border-radius:4px;
+    transform:rotate(-9deg);
+    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+    z-index:3;
   }
   .book-cover{
     width:96px; height:96px; border-radius:50%;
@@ -340,6 +354,80 @@
   .avatar{ width:38px; height:38px; border-radius:50%; background:var(--gold-500); }
   .testi-name strong{ font-family:'Amiri'; color:var(--cream-100); font-size:0.95rem; }
   .testi-name span{ display:block; font-size:0.8rem; color:var(--gold-300); }
+
+  .about-wrap{
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; align-items:center;
+  }
+  .about-emblem{
+    width:180px; height:180px; margin:0 auto;
+    border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, var(--emerald-600), var(--emerald-950));
+    border:2px solid var(--gold-500);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .about-emblem svg{ width:90px; height:90px; }
+  .about-text p{ color:var(--cream-200); opacity:0.9; margin-bottom:16px; font-size:1rem; }
+  .about-text p:last-child{ margin-bottom:0; }
+
+  .donation-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:26px;
+  }
+  .donation-card{
+    background:var(--emerald-700); border:1px solid var(--gold-500); border-radius:16px;
+    padding:32px 28px;
+  }
+  .donation-card .icon{ font-size:1.8rem; margin-bottom:14px; display:block; }
+  .donation-card h3{ font-family:'Amiri'; font-size:1.15rem; color:var(--gold-300); margin-bottom:10px; }
+  .donation-card p{ color:var(--cream-200); font-size:0.92rem; opacity:0.9; margin:0; }
+  .donation-process{
+    margin-top:40px;
+    background:var(--emerald-800);
+    border:1px dashed var(--line);
+    border-radius:14px;
+    padding:26px 30px;
+    text-align:center;
+  }
+  .donation-process p{ margin:0; font-size:0.88rem; color:var(--cream-200); opacity:0.85; line-height:1.7; }
+
+  .faq-list{ max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:14px; }
+  .faq-item{
+    background:var(--emerald-700);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:6px 26px;
+  }
+  .faq-item summary{
+    cursor:pointer;
+    padding:18px 0;
+    font-family:'Amiri';
+    font-size:1.02rem;
+    color:var(--cream-100);
+    list-style:none;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary::after{
+    content:"+";
+    font-family:'Lora'; font-size:1.3rem; color:var(--gold-500);
+    margin-left:14px; flex:0 0 auto;
+    transition:transform .2s;
+  }
+  .faq-item[open] summary::after{ transform:rotate(45deg); }
+  .faq-item p{
+    margin:0 0 20px; color:var(--cream-200); opacity:0.85; font-size:0.92rem;
+  }
+
+  .social-row{ display:flex; gap:14px; margin-top:6px; }
+  .social-btn{
+    width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    transition:border-color .2s, background .2s, transform .15s;
+    text-decoration:none;
+  }
+  .social-btn:hover{ border-color:var(--gold-300); background:rgba(201,162,39,0.1); transform:translateY(-2px); }
+  .social-btn svg{ width:18px; height:18px; }
+
   .overlay{
     position:fixed; inset:0; background:rgba(0,0,0,0.5);
     opacity:0; pointer-events:none; transition:opacity .25s; z-index:90;
@@ -376,6 +464,10 @@
     line-height:1.4;
   }
   .cart-donation-note.show{ display:block; }
+  .refund-note{
+    font-size:0.72rem; color:var(--cream-200); opacity:0.65;
+    text-align:center; margin-top:10px; line-height:1.4;
+  }
   footer{
     background:var(--emerald-800);
     border-top:1px solid var(--line);
@@ -400,7 +492,7 @@
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
   @media (max-width: 880px){
     .navlinks{ display:none; }
-    .ayat-grid, .testi-grid{ grid-template-columns:1fr; }
+    .ayat-grid, .testi-grid, .about-wrap, .donation-grid{ grid-template-columns:1fr; }
     .why-wrap{ grid-template-columns:1fr; }
     .footer-grid{ grid-template-columns:1fr; }
     .impact-card{ flex-direction:column; text-align:center; }
@@ -422,8 +514,9 @@
     </div>
     <ul class="navlinks">
       <li><a href="#collection">Collection</a></li>
-      <li><a href="#ayat">Ayat</a></li>
-      <li><a href="#why">Why Read</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#donations">Donations</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#reviews">Reviews</a></li>
     </ul>
     <button class="cart-btn" id="open-cart" aria-haspopup="dialog">🛒 Cart <span id="cart-count">(0)</span></button>
@@ -513,7 +606,7 @@
             <div class="why-num">2</div>
             <div>
               <h4>Your order helps twice</h4>
-              <p>One third of every order over $3 goes straight to Palestinian relief and our local mosque — so your purchase supports both your own learning and the wider ummah.</p>
+              <p>One third of every order over $3 goes straight to Palestinian relief and Mosques — so your purchase supports both your own learning and the wider ummah.</p>
             </div>
           </li>
           <li>
@@ -531,6 +624,92 @@
         <blockquote style="margin-top:34px;">"The scholars are the heirs of the prophets."</blockquote>
         <cite>Reminder narrated, cited by Abu Dawud (paraphrased)</cite>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Who we are</div>
+      <h2>About Dawah Pioneer Books</h2>
+    </div>
+    <div class="about-wrap">
+      <div class="about-emblem">
+        <svg viewBox="0 0 120 120"><g fill="none" stroke="#C9A227" stroke-width="2"><path d="M60 6 L74 34 L106 30 L86 56 L106 82 L74 78 L60 106 L46 78 L14 82 L34 56 L14 30 L46 34 Z"/></g></svg>
+      </div>
+      <div class="about-text">
+        <p>Dawah Pioneer Books started as a simple idea: short, affordable ebooks that make Islamic knowledge and reflection easy to fit into a busy day — no matter your budget.</p>
+        <p>We write, translate, and design every title ourselves, blending stories, science, and reminders rooted in the Quran and Sunnah. Every book stays priced low on purpose, because we believe learning shouldn't wait for a bigger wallet.</p>
+        <p>Beyond books, part of what we build here goes back to the community — which is why a third of every order over $3 is set aside for Palestinian relief and local Mosques in need.</p>
+        <div class="social-row" aria-label="Follow Dawah Pioneer Books">
+          <a class="social-btn" href="https://www.youtube.com/@DawahPioneerBooks" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#E4C767" stroke-width="1.6"><path d="M22 12s0-3.5-.45-5.1a2.8 2.8 0 0 0-2-2C17.9 4.4 12 4.4 12 4.4s-5.9 0-7.55.5a2.8 2.8 0 0 0-2 2C2 8.5 2 12 2 12s0 3.5.45 5.1a2.8 2.8 0 0 0 2 2c1.65.5 7.55.5 7.55.5s5.9 0 7.55-.5a2.8 2.8 0 0 0 2-2C22 15.5 22 12 22 12Z"/><path d="M10 9.5v5l4.5-2.5Z" fill="#E4C767" stroke="none"/></svg>
+          </a>
+          <a class="social-btn" href="https://discord.gg/dawahpioneerbooks" target="_blank" rel="noopener" aria-label="Discord">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#E4C767" stroke-width="1.6"><path d="M8 9c1 -1 2 -1.3 4 -1.3s3 .3 4 1.3M6 16c3.5 1.6 8.5 1.6 12 0M8.5 13c-.4.6-1 .6-1.4 0M16.9 13c-.4.6-1 .6-1.4 0M6.5 6.8C4 8 3 11 3 16c1.3 1.3 3 2 3 2l.9-1.5M17.5 6.8C20 8 21 11 21 16c-1.3 1.3-3 2-3 2l-.9-1.5"/></svg>
+          </a>
+          <a class="social-btn" href="https://chat.whatsapp.com/dawahpioneerbooks" target="_blank" rel="noopener" aria-label="WhatsApp group">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#E4C767" stroke-width="1.6"><path d="M20 12a8 8 0 1 1-3.7-6.7"/><path d="M20 4l-4.5 8L12 9.5"/><path d="M9 10c.3 1.6 2.4 3.7 4 4l1.3-1.3c.5-.5 1-.2 1.5 0l1.7 1c.4.2.5.6.3 1-1 1.6-2.8 2-4.5 1.4-2.6-.9-4.7-3-5.6-5.6C7.1 8.8 7.5 7 9.1 6c.4-.2.8-.1 1 .3l1 1.7c.2.5.5 1 0 1.5L9 10Z" fill="#E4C767" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="donations" style="background:var(--emerald-800); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Transparency</div>
+      <h2>Where your donation goes</h2>
+      <p>One third of every order over $3 is split between two causes close to our heart.</p>
+    </div>
+    <div class="donation-grid">
+      <div class="donation-card">
+        <span class="icon">🇵🇸</span>
+        <h3>Palestinian relief</h3>
+        <p>Funds are sent to trusted, established relief organizations providing food, medical aid, and emergency support to Palestinian families affected by the ongoing crisis.</p>
+      </div>
+      <div class="donation-card">
+        <span class="icon">🕌</span>
+        <h3>Mosques in need</h3>
+        <p>The remaining share goes toward Mosques facing financial hardship — helping cover essentials like maintenance, utilities, and community programs.</p>
+      </div>
+    </div>
+    <div class="donation-process">
+      <p>As a small, independent project, donations are currently sent out manually by our team rather than through an automated charity platform. We keep records of every transfer and are working toward publishing regular donation updates as the store grows. If you'd like proof of a specific transfer, reach out any time at lune483@hotmail.com.</p>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Questions</div>
+      <h2>Frequently asked questions</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>What format do the ebooks come in?</summary>
+        <p>Every ebook is delivered as a PDF (and EPUB where available), so you can read it on your phone, tablet, or computer.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do I receive my ebook after paying?</summary>
+        <p>Payment is currently handled through Interac e-Transfer (Canada only). Once we confirm your e-Transfer, we send your ebook file directly to your email — usually within a few hours.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How does the donation to Palestine and Mosques work?</summary>
+        <p>For every order over $3, one third of what you pay is set aside and sent manually to Palestinian relief organizations and Mosques in need. See our "Where your donation goes" section above for more detail.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I get a refund?</summary>
+        <p>All sales are final. Because ebooks are delivered instantly as digital files, we are unable to offer refunds once a file has been sent. If you received the wrong file or experience a technical issue, contact us and we'll make it right.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do you ship outside Canada?</summary>
+        <p>Since payment is by Interac e-Transfer, purchases are currently limited to Canada. Reach out if you're outside Canada and want to know about alternative payment options.</p>
+      </details>
     </div>
   </div>
 </section>
@@ -566,14 +745,26 @@
           <svg viewBox="0 0 120 120" style="width:24px;height:24px;"><g fill="none" stroke="#C9A227" stroke-width="2"><path d="M60 6 L74 34 L106 30 L86 56 L106 82 L74 78 L60 106 L46 78 L14 82 L34 56 L14 30 L46 34 Z"/></g></svg>
           Dawah Pioneer Books
         </div>
-        <p style="color:var(--cream-200); opacity:0.8; font-size:0.9rem; max-width:320px;">Short, affordable ebooks to nourish faith and mind, one ayah at a time. 🇵🇸 One third of every order over $3 supports Palestinian relief and Mosques who need money.</p>
+        <p style="color:var(--cream-200); opacity:0.8; font-size:0.9rem; max-width:320px; margin-bottom:16px;">Short, affordable ebooks to nourish faith and mind, one ayah at a time. 🇵🇸 One third of every order over $3 supports Palestinian relief and Mosques who need money.</p>
+        <div class="social-row" aria-label="Follow Dawah Pioneer Books">
+          <a class="social-btn" href="https://www.youtube.com/@DawahPioneerBooks" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#E4C767" stroke-width="1.6"><path d="M22 12s0-3.5-.45-5.1a2.8 2.8 0 0 0-2-2C17.9 4.4 12 4.4 12 4.4s-5.9 0-7.55.5a2.8 2.8 0 0 0-2 2C2 8.5 2 12 2 12s0 3.5.45 5.1a2.8 2.8 0 0 0 2 2c1.65.5 7.55.5 7.55.5s5.9 0 7.55-.5a2.8 2.8 0 0 0 2-2C22 15.5 22 12 22 12Z"/><path d="M10 9.5v5l4.5-2.5Z" fill="#E4C767" stroke="none"/></svg>
+          </a>
+          <a class="social-btn" href="https://discord.gg/dawahpioneerbooks" target="_blank" rel="noopener" aria-label="Discord">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#E4C767" stroke-width="1.6"><path d="M8 9c1 -1 2 -1.3 4 -1.3s3 .3 4 1.3M6 16c3.5 1.6 8.5 1.6 12 0M8.5 13c-.4.6-1 .6-1.4 0M16.9 13c-.4.6-1 .6-1.4 0M6.5 6.8C4 8 3 11 3 16c1.3 1.3 3 2 3 2l.9-1.5M17.5 6.8C20 8 21 11 21 16c-1.3 1.3-3 2-3 2l-.9-1.5"/></svg>
+          </a>
+          <a class="social-btn" href="https://chat.whatsapp.com/dawahpioneerbooks" target="_blank" rel="noopener" aria-label="WhatsApp group">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#E4C767" stroke-width="1.6"><path d="M20 12a8 8 0 1 1-3.7-6.7"/><path d="M20 4l-4.5 8L12 9.5"/><path d="M9 10c.3 1.6 2.4 3.7 4 4l1.3-1.3c.5-.5 1-.2 1.5 0l1.7 1c.4.2.5.6.3 1-1 1.6-2.8 2-4.5 1.4-2.6-.9-4.7-3-5.6-5.6C7.1 8.8 7.5 7 9.1 6c.4-.2.8-.1 1 .3l1 1.7c.2.5.5 1 0 1.5L9 10Z" fill="#E4C767" stroke="none"/></svg>
+          </a>
+        </div>
       </div>
       <div>
         <h5>Navigation</h5>
         <ul>
           <li><a href="#collection">Collection</a></li>
-          <li><a href="#ayat">Ayat</a></li>
-          <li><a href="#why">Why Read</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#donations">Donations</a></li>
+          <li><a href="#faq">FAQ</a></li>
           <li><a href="#reviews">Reviews</a></li>
         </ul>
       </div>
@@ -581,6 +772,7 @@
         <h5>Support</h5>
         <ul>
           <li><a href="#">Contact for Ideas: lune483@hotmail.com</a></li>
+          <li><a href="#faq">Refund policy: all sales final</a></li>
         </ul>
       </div>
     </div>
@@ -601,12 +793,13 @@
   <div class="drawer-foot">
     <div class="total-row"><span>Total</span><span id="cart-total">$0</span></div>
     <div class="cart-donation-note" id="cart-donation-note">
-      🇵🇸 <strong id="donation-amount">$0</strong> of this order (1/3) will be donated to Palestinian relief and our local mosque 🕌
+      🇵🇸 <strong id="donation-amount">$0</strong> of this order (1/3) will be donated to Palestinian relief and Mosques 🕌
     </div>
     <p style="font-size:0.78rem; color:var(--cream-200); opacity:0.8; margin-bottom:12px; text-align:center;">
       🇨🇦 Payment via Interac e-Transfer (Canada only)
     </p>
     <button class="btn-primary checkout-btn" id="checkout-btn">Proceed to Payment</button>
+    <p class="refund-note">All sales are final — no refunds once your ebook has been delivered.</p>
   </div>
 </aside>
 
@@ -614,13 +807,13 @@
 
 <script>
   const books = [
-    { id:'b1', title:"Link between Quran and History part 1", cat:"Fictive story", desc:"Fictive story adapted to muslim people. A conspiracy want to destroy the World but 1 man will stop it. ", price:3 },
-    { id:'b2', title:"Fiqh Maliki", cat:"Fiqh", desc:"Explain how Maliki madhab was made. ", price:1 },
-    { id:'b3', title:"The body", cat:"Science", desc:"It's a book about science and the body. Make you understand the precision of how Allah created it", price:3 },
-    { id:'b4', title:"Western conspiracy", cat:"World problems", desc:"How to understand a world where muslims are being divided and attacked. ", price:3 },
-    { id:'b5', title:"Space theory", cat:"Science", desc:"Explain a theory of cosmology according to Quran and Sunnah", price:2 },
-    { id:'b6', title:"Link Between Quran and Dunya part 2", cat:"Fictive story", desc:"Adapted to Muslim, the continuation of Link between Quran and History, a muslim hero attacked by everyone but realize what's Dunya", price:3 },
-    { id:'b7', title:"The begining of Universe in Islam", cat:"Islamic science", desc:"Explain how Allah create humanity and Universe", price:1 },
+    { id:'b1', title:"Link between Quran and History part 1", cat:"Fictive story", desc:"Fictive story adapted to muslim people. A conspiracy want to destroy the World but 1 man will stop it. ", price:3, isNew:false },
+    { id:'b2', title:"Fiqh Maliki", cat:"Fiqh", desc:"Explain how Maliki madhab was made. ", price:1, isNew:false },
+    { id:'b3', title:"The body", cat:"Science", desc:"It's a book about science and the body. Make you understand the precision of how Allah created it", price:3, isNew:false },
+    { id:'b4', title:"Western conspiracy", cat:"World problems", desc:"How to understand a world where muslims are being divided and attacked. ", price:3, isNew:false },
+    { id:'b5', title:"Space theory", cat:"Science", desc:"Explain a theory of cosmology according to Quran and Sunnah", price:2, isNew:false },
+    { id:'b6', title:"Link Between Quran and Dunya part 2", cat:"Fictive story", desc:"Adapted to Muslim, the continuation of Link between Quran and History, a muslim hero attacked by everyone but realize what's Dunya", price:3, isNew:true },
+    { id:'b7', title:"The begining of Universe in Islam", cat:"Islamic science", desc:"Explain how Allah create humanity and Universe", price:1, isNew:true },
   ];
 
   const ayatMarquee = [
@@ -635,6 +828,7 @@
   const grid = document.getElementById('products-grid');
   grid.innerHTML = books.map(b => `
     <div class="book-card">
+      ${b.isNew ? '<span class="new-badge">NEW</span>' : ''}
       <div class="arch-motif"></div>
       <div class="book-cover">${bookIcon}</div>
       <h3>${b.title}</h3>
