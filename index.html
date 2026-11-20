@@ -284,6 +284,19 @@
     box-shadow:0 4px 10px rgba(0,0,0,0.3);
     z-index:3;
   }
+  .reedition-badge{
+    position:absolute;
+    top:12px; right:-8px;
+    background:var(--gold-500);
+    color:var(--emerald-950);
+    font-family:'Lora'; font-weight:700; font-size:0.68rem;
+    letter-spacing:0.05em;
+    padding:4px 14px;
+    border-radius:4px;
+    transform:rotate(-9deg);
+    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+    z-index:3;
+  }
   .book-cover{
     width:96px; height:96px; border-radius:50%;
     background:radial-gradient(circle at 35% 30%, var(--emerald-600), var(--emerald-950));
@@ -808,12 +821,12 @@
 <script>
   const books = [
     { id:'b1', title:"Link between Quran and History part 1", cat:"Fictive story", desc:"Fictive story adapted to muslim people. A conspiracy want to destroy the World but 1 man will stop it. ", price:3, isNew:false },
-    { id:'b2', title:"Fiqh Maliki", cat:"Fiqh", desc:"Explain how Maliki madhab was made. ", price:1, isNew:false },
-    { id:'b3', title:"The body", cat:"Science", desc:"It's a book about science and the body. Make you understand the precision of how Allah created it", price:3, isNew:false },
-    { id:'b4', title:"Western conspiracy", cat:"World problems", desc:"How to understand a world where muslims are being divided and attacked. ", price:3, isNew:false },
-    { id:'b5', title:"Space theory", cat:"Science", desc:"Explain a theory of cosmology according to Quran and Sunnah", price:2, isNew:false },
-    { id:'b6', title:"Link Between Quran and Dunya part 2", cat:"Fictive story", desc:"Adapted to Muslim, the continuation of Link between Quran and History, a muslim hero attacked by everyone but realize what's Dunya", price:3, isNew:true },
-    { id:'b7', title:"The begining of Universe in Islam", cat:"Islamic science", desc:"Explain how Allah create humanity and Universe", price:2, isNew:true },
+    { id:'b2', title:"Fiqh Maliki", cat:"Fiqh", desc:"Explain how Maliki madhab was made. ", price:1, isNew:false, isReedition:true },
+    { id:'b3', title:"The body", cat:"Science", desc:"It's a book about science and the body. Make you understand the precision of how Allah created it", price:3, isNew:false, isReedition:true },
+    { id:'b4', title:"Western conspiracy", cat:"World problems", desc:"How to understand a world where muslims are being divided and attacked. ", price:3, isNew:false, isReedition:true },
+    { id:'b5', title:"Space theory", cat:"Science", desc:"Explain a theory of cosmology according to Quran and Sunnah", price:2, isNew:false, isReedition:true },
+    { id:'b6', title:"Link Between Quran and Dunya part 2", cat:"Fictive story", desc:"Adapted to Muslim, the continuation of Link between Quran and History, a muslim hero attacked by everyone but realize what's Dunya", price:3, isNew:true, isReedition:true },
+    { id:'b7', title:"The begining of Universe in Islam", cat:"Islamic science", desc:"Explain how Allah create humanity and Universe", price:2, isNew:true, isReedition:true },
   ];
 
   const ayatMarquee = [
@@ -829,6 +842,7 @@
   grid.innerHTML = books.map(b => `
     <div class="book-card">
       ${b.isNew ? '<span class="new-badge">NEW</span>' : ''}
+      ${b.isReedition ? '<span class="reedition-badge">Reedition</span>' : ''}
       <div class="arch-motif"></div>
       <div class="book-cover">${bookIcon}</div>
       <h3>${b.title}</h3>
