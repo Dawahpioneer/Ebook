@@ -937,6 +937,266 @@
 
   renderCart();
 </script>
+<!-- ============================================================
+  ADD-ONS: Book of the Month + English/French switcher (combined).
+  Paste this whole block in your index.html right before </body>
+  (after your existing </script>). If you already pasted the previous
+  "book-of-the-month" block, delete it first: this one replaces it.
+  Each month: edit only id, note and noteFr in BOOK_OF_THE_MONTH.
+============================================================= -->
+<style>
+  .botm{background:linear-gradient(90deg,var(--emerald-800),var(--emerald-700));border-bottom:1px solid var(--line);padding:22px 0}
+  .botm-inner{display:flex;align-items:center;gap:26px;max-width:1120px;margin:0 auto;padding:0 28px}
+  .botm-star{flex:0 0 auto;width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--emerald-600),var(--emerald-950));border:2px solid var(--gold-500);display:flex;align-items:center;justify-content:center}
+  .botm-star svg{width:32px;height:32px}
+  .botm-body{flex:1;min-width:0}
+  .botm h2{font-size:1.35rem;color:var(--cream-100);margin:2px 0 4px}
+  .botm p{margin:0;font-size:.9rem;color:var(--cream-200);opacity:.9}
+  .botm p.botm-note{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-300);font-size:1rem;margin-top:6px}
+  .botm-buy{flex:0 0 auto;text-align:center}
+  .botm-price{font-family:'Amiri',serif;font-weight:700;font-size:1.6rem;color:var(--gold-300);display:block;margin-bottom:6px}
+  .nav-actions{display:flex;align-items:center;gap:10px}
+  .lang-btn{background:transparent;border:1px solid var(--line);color:var(--cream-100);padding:9px 14px;border-radius:999px;font-family:'Lora',serif;font-weight:600;font-size:.82rem;letter-spacing:.06em;cursor:pointer;transition:border-color .2s,background .2s}
+  .lang-btn:hover{border-color:var(--gold-300);background:rgba(201,162,39,.1)}
+  @media (max-width:880px){.botm-inner{flex-direction:column;text-align:center}}
+</style>
 
+<script>
+(function(){
+  /* ---------- Book of the Month (change these each month) ---------- */
+  var BOOK_OF_THE_MONTH = {
+    id: 'b6',
+    note: 'Our pick this month — a gripping story that connects the Quran to everyday life.',
+    noteFr: 'Notre coup de cœur du mois — un récit captivant qui relie le Coran à la vie de tous les jours.'
+  };
+
+  var book = books.find(function(b){ return b.id === BOOK_OF_THE_MONTH.id; });
+  if(book){
+    var banner = document.createElement('div');
+    banner.className = 'botm';
+    banner.innerHTML =
+      '<div class="botm-inner">' +
+        '<div class="botm-star"><svg viewBox="0 0 120 120"><g fill="none" stroke="#C9A227" stroke-width="3"><path d="M60 6 L74 34 L106 30 L86 56 L106 82 L74 78 L60 106 L46 78 L14 82 L34 56 L14 30 L46 34 Z"/></g></svg></div>' +
+        '<div class="botm-body">' +
+          '<div class="eyebrow" id="botm-label"></div>' +
+          '<h2 id="botm-title"></h2>' +
+          '<p id="botm-desc"></p>' +
+          '<p class="botm-note" id="botm-note"></p>' +
+        '</div>' +
+        '<div class="botm-buy">' +
+          '<span class="botm-price" id="botm-price"></span>' +
+          '<button class="btn-primary" id="botm-add">Add to cart</button>' +
+        '</div>' +
+      '</div>';
+    document.querySelector('header').insertAdjacentElement('afterend', banner);
+    var month = new Date().toLocaleString('en-US', { month:'long', year:'numeric' });
+    document.getElementById('botm-label').textContent = '⭐ Book of the Month — ' + month;
+    document.getElementById('botm-title').textContent = book.title;
+    document.getElementById('botm-desc').textContent = book.desc;
+    document.getElementById('botm-note').textContent = BOOK_OF_THE_MONTH.note;
+    document.getElementById('botm-price').textContent = '$' + book.price;
+    var addBtn = document.getElementById('botm-add');
+    addBtn.addEventListener('click', function(){
+      cart.push(book);
+      renderCart();
+      showToast('"' + book.title + '" added — $' + book.price);
+      addBtn.textContent = 'Added ✓';
+      setTimeout(function(){ addBtn.textContent = 'Add to cart'; }, 1400);
+    });
+  }
+
+  /* Footer social links: reuse the real ones from the About section */
+  var aboutLinks = document.querySelectorAll('#about .social-btn');
+  document.querySelectorAll('footer .social-btn').forEach(function(a, i){
+    if(aboutLinks[i]) a.href = aboutLinks[i].href;
+  });
+
+  /* ---------- English / French switcher ---------- */
+  function norm(s){ return s.replace(/\s+/g,' ').trim(); }
+  var D = {};
+  [
+    // top bar, nav, hero
+    ['1/3 of every order over','1/3 de chaque commande de plus de'],
+    ['is donated to Palestinian relief and to Mosques who need money','est reversé aux secours palestiniens et aux mosquées dans le besoin'],
+    ['About','À propos'],['Donations','Dons'],['Reviews','Avis'],['🛒 Cart','🛒 Panier'],
+    ['Sadaqah jariyah • knowledge that keeps on giving','Sadaqah jariyah • un savoir qui continue de donner'],
+    ['Every ebook, a door to','Chaque ebook, une porte vers'],['more light','plus de lumière'],['— for just $3','— pour seulement $3'],
+    ['Ebooks written with care to nourish the heart and the mind, priced so that knowledge is never out of reach.','Des ebooks écrits avec soin pour nourrir le cœur et l\'esprit, à un prix tel que le savoir ne soit jamais hors de portée.'],
+    ['Browse the collection','Découvrir la collection'],['Read the ayat that inspire us','Lire les versets qui nous inspirent'],
+    ['"Whoever takes a path in search of knowledge, Allah makes easy for him a path to Paradise." — narrated by Muslim (paraphrased)','« Celui qui emprunte un chemin en quête de science, Allah lui facilite un chemin vers le Paradis. » — rapporté par Muslim (paraphrase)'],
+    ['Your purchase gives back','Votre achat redonne'],
+    ['For every order over $3, one third of the proceeds is donated directly to Palestinian relief efforts and Mosques. Buying knowledge here also means supporting the ummah.','Pour chaque commande de plus de $3, un tiers des recettes est reversé directement aux secours palestiniens et aux mosquées. Acheter du savoir ici, c\'est aussi soutenir l\'oumma.'],
+    // ayat
+    ['What guides us','Ce qui nous guide'],
+    ['Knowledge, a light you never stop lighting','Le savoir, une lumière qu\'on ne cesse d\'allumer'],
+    ['Three reminders from the Quran on why learning — and passing it on — carries real weight.','Trois rappels du Coran qui expliquent pourquoi apprendre — et transmettre — a un vrai poids.'],
+    ['"Are those who know equal to those who do not know?" A question meant to be sat with, not skimmed past.','« Sont-ils égaux, ceux qui savent et ceux qui ne savent pas ? » Une question posée pour qu\'on y réfléchisse, pas pour qu\'on la lise en vitesse.'],
+    ['"And say: My Lord, increase me in knowledge." A short prayer you can carry with you through every page turned.','« Et dis : Ô mon Seigneur, augmente mes connaissances. » Une prière courte, qu\'on peut porter avec soi à chaque page tournée.'],
+    ['"Read, in the name of your Lord who created." The very first revelation wasn\'t a command to build or conquer — it was to read.','« Lis, au nom de ton Seigneur qui a créé. » Le tout premier ordre révélé n\'était pas de bâtir ou de conquérir — c\'était de lire.'],
+    ['Surah Az-Zumar, 39:9','Sourate Az-Zumar, 39:9'],['Surah Ta-Ha, 20:114','Sourate Ta-Ha, 20:114'],['Surah Al-Alaq, 96:1','Sourate Al-Alaq, 96:1'],
+    ['— My Lord, increase me in knowledge','— Ô mon Seigneur, augmente mes connaissances'],
+    ['— Read, in the name of your Lord','— Lis, au nom de ton Seigneur'],
+    ['— Are those who know equal to those who do not know?','— Sont-ils égaux, ceux qui savent et ceux qui ne savent pas ?'],
+    ['— Among His servants, it is the scholars who fear Allah','— Parmi Ses serviteurs, seuls les savants craignent Allah'],
+    // collection + books
+    ['The collection','La collection'],
+    ['Ebooks at $3, without cutting corners','Des ebooks à $3, sans compromis sur la qualité'],
+    ['PDF and EPUB formats, delivered instantly by email after purchase. Remember: every order over $3 sends a third of the proceeds to Palestinian relief and Mosques.','Formats PDF et EPUB, livrés par email après l\'achat. Rappel : chaque commande de plus de $3 verse un tiers des recettes aux secours palestiniens et aux mosquées.'],
+    ['Add to cart','Ajouter au panier'],['Added ✓','Ajouté ✓'],['NEW','NOUVEAU'],['Reedition','Réédition'],
+    ['Fictive story','Histoire fictive'],['World problems','Problèmes du monde'],['Islamic science','Sciences islamiques'],
+    ['Fictive story adapted to muslim people. A conspiracy want to destroy the World but 1 man will stop it.','Récit fictif adapté au public musulman. Un complot veut détruire le monde, mais un seul homme l\'arrêtera.'],
+    ['Explain how Maliki madhab was made.','Explique comment l\'école malikite (madhhab) s\'est constituée.'],
+    ['It\'s a book about science and the body. Make you understand the precision of how Allah created it','Un livre de science sur le corps humain, qui fait comprendre la précision avec laquelle Allah l\'a créé.'],
+    ['How to understand a world where muslims are being divided and attacked.','Comment comprendre un monde où les musulmans sont divisés et attaqués.'],
+    ['Explain a theory of cosmology according to Quran and Sunnah','Explique une théorie de cosmologie selon le Coran et la Sunna.'],
+    ['Adapted to Muslim, the continuation of Link between Quran and History, a muslim hero attacked by everyone but realize what\'s Dunya','Adapté pour les musulmans, la suite de « Link between Quran and History » : un héros musulman attaqué par tous découvre ce qu\'est la Dunya.'],
+    ['Explain how Allah create humanity and Universe','Explique comment Allah a créé l\'humanité et l\'univers.'],
+    // why
+    ['Why this price, why now','Pourquoi ce prix, pourquoi maintenant'],
+    ['$3 is the price of a tea — for knowledge that stays with you','$3, c\'est le prix d\'un thé — pour un savoir qui reste'],
+    ['An act that keeps on giving','Un acte qui continue de donner'],
+    ['The Prophet ﷺ taught that knowledge passed on is among the deeds whose reward doesn\'t stop. Every ebook you read — and share — can become that.','Le Prophète ﷺ a enseigné que le savoir transmis fait partie des œuvres dont la récompense ne s\'arrête pas. Chaque ebook que vous lisez — et partagez — peut devenir cela.'],
+    ['Your order helps twice','Votre commande aide deux fois'],
+    ['One third of every order over $3 goes straight to Palestinian relief and Mosques — so your purchase supports both your own learning and the wider ummah.','Un tiers de chaque commande de plus de $3 va directement aux secours palestiniens et aux mosquées — votre achat soutient à la fois votre apprentissage et l\'oumma.'],
+    ['A moment for you, every day','Un moment pour vous, chaque jour'],
+    ['A few pages before sleep, a reminder between tasks — these ebooks are built to fit into a busy life, not add weight to it.','Quelques pages avant de dormir, un rappel entre deux tâches — ces ebooks s\'insèrent dans une vie occupée sans l\'alourdir.'],
+    ['"Whoever seeks knowledge, his previous sins are forgiven with every step he takes."','« Celui qui cherche le savoir voit ses fautes passées effacées à chaque pas qu\'il fait. »'],
+    ['Reminder narrated, cited by At-Tirmidhi (paraphrased)','Rappel rapporté, cité par At-Tirmidhi (paraphrase)'],
+    ['"The scholars are the heirs of the prophets."','« Les savants sont les héritiers des prophètes. »'],
+    ['Reminder narrated, cited by Abu Dawud (paraphrased)','Rappel rapporté, cité par Abu Dawud (paraphrase)'],
+    // about
+    ['Who we are','Qui sommes-nous'],['About Dawah Pioneer Books','À propos de Dawah Pioneer Books'],
+    ['Dawah Pioneer Books started as a simple idea after creating our Youtube Channel: short, affordable ebooks that make Islamic knowledge and reflection easy to fit into a busy day — no matter your budget.','Dawah Pioneer Books est né d\'une idée simple après la création de notre chaîne YouTube : des ebooks courts et abordables qui rendent le savoir et la réflexion islamiques faciles à intégrer dans une journée chargée — quel que soit votre budget.'],
+    ['We write, translate, and design every title ourselves, blending stories, science, and reminders rooted in the Quran and Sunnah. Every book stays priced low on purpose, because we believe learning shouldn\'t wait for a bigger wallet.','Nous écrivons, traduisons et concevons chaque titre nous-mêmes, mêlant récits, science et rappels ancrés dans le Coran et la Sunna. Chaque livre reste à bas prix volontairement, car nous croyons que l\'apprentissage ne devrait pas attendre un plus gros portefeuille.'],
+    ['Beyond books, part of what we build here goes back to the community — which is why a third of every order over $3 is set aside for Palestinian relief and local Mosques in need.','Au-delà des livres, une partie de ce que nous bâtissons ici revient à la communauté — c\'est pourquoi un tiers de chaque commande de plus de $3 est mis de côté pour les secours palestiniens et les mosquées dans le besoin.'],
+    // donations
+    ['Transparency','Transparence'],['Where your donation goes','Où va votre don'],
+    ['One third of every order over $3 is split between two causes close to our heart.','Un tiers de chaque commande de plus de $3 est réparti entre deux causes qui nous tiennent à cœur.'],
+    ['Palestinian relief','Secours palestiniens'],
+    ['Funds are sent to trusted, established relief organizations providing food, medical aid, and emergency support to Palestinian families affected by the ongoing crisis like UNRWA (ONU) and Red Cross.','Les fonds sont envoyés à des organisations de secours reconnues et fiables, qui fournissent nourriture, aide médicale et soutien d\'urgence aux familles palestiniennes touchées par la crise, comme l\'UNRWA (ONU) et la Croix-Rouge.'],
+    ['Mosques in need','Mosquées dans le besoin'],
+    ['The remaining share goes toward Mosques facing financial hardship — helping cover essentials like maintenance, utilities, and community programs like by giving to MATW Project (Australian Organization).','Le reste va aux mosquées en difficulté financière — pour couvrir l\'essentiel comme l\'entretien, les charges et les programmes communautaires, notamment via MATW Project (organisation australienne).'],
+    ['As a small, independent project, donations are currently sent out manually by our team rather than through an automated charity platform. We keep records of every transfer and are working toward publishing regular donation updates as the store grows. If you\'d like proof of a specific transfer, reach out any time at contact.dawahpioneer@gmail.com.','Petit projet indépendant, nos dons sont pour l\'instant envoyés manuellement par notre équipe plutôt que via une plateforme caritative automatisée. Nous gardons une trace de chaque transfert et travaillons à publier des mises à jour régulières à mesure que la boutique grandit. Pour une preuve d\'un transfert précis, écrivez-nous à contact.dawahpioneer@gmail.com.'],
+    // faq
+    ['Questions','Questions'],['Frequently asked questions','Questions fréquentes'],
+    ['What format do the ebooks come in?','Dans quel format sont les ebooks ?'],
+    ['Every ebook is delivered as a PDF, so you can read it on your phone, tablet, or computer.','Chaque ebook est livré en PDF, pour le lire sur téléphone, tablette ou ordinateur.'],
+    ['How do I receive my ebook after paying?','Comment recevoir mon ebook après le paiement ?'],
+    ['Payment is currently handled through Interac e-Transfer (Canada only). Once we confirm your e-Transfer, we send your ebook file directly to your email — usually within a few hours.','Le paiement se fait pour l\'instant par virement Interac (Canada seulement). Une fois votre virement confirmé, nous envoyons l\'ebook directement à votre courriel — généralement en quelques heures.'],
+    ['How does the donation to Palestine and Mosques work?','Comment fonctionne le don à la Palestine et aux mosquées ?'],
+    ['For every order over $3, one third of what you pay is set aside and sent manually to Palestinian relief organizations and Mosques in need. See our "Where your donation goes" section above for more detail.','Pour chaque commande de plus de $3, un tiers de ce que vous payez est mis de côté et envoyé manuellement à des organisations de secours palestiniennes et à des mosquées dans le besoin. Voir la section « Où va votre don » pour plus de détails.'],
+    ['Can I get a refund?','Puis-je être remboursé ?'],
+    ['All sales are final. Because ebooks are delivered instantly as digital files, we are unable to offer refunds once a file has been sent. If you received the wrong file or experience a technical issue, contact us and we\'ll make it right.','Toutes les ventes sont finales. Les ebooks étant des fichiers numériques livrés immédiatement, nous ne pouvons pas rembourser une fois le fichier envoyé. Si vous avez reçu le mauvais fichier ou rencontrez un problème technique, contactez-nous et nous réglerons cela.'],
+    ['Do you ship outside Canada?','Livrez-vous hors du Canada ?'],
+    ['Since payment is by Interac e-Transfer, purchases are currently limited to Canada. Reach out if you\'re outside Canada and want to know about alternative payment options.','Le paiement se faisant par virement Interac, les achats sont pour l\'instant limités au Canada. Contactez-nous si vous êtes hors du Canada pour connaître d\'autres options de paiement.'],
+    // reviews labels (customer quotes are left as written)
+    ['Readers say','Les lecteurs en parlent'],['What our readers are saying','Ce que disent nos lecteurs'],
+    ['First Buyer','Premier acheteur'],['1 Ebook purchase','1 ebook acheté'],['Returning customer','Client fidèle'],
+    // footer
+    ['Short, affordable ebooks to nourish faith and mind, one ayah at a time. 🇵🇸 One third of every order over $3 supports Palestinian relief and Mosques who need money.','Des ebooks courts et abordables pour nourrir la foi et l\'esprit, un verset à la fois. 🇵🇸 Un tiers de chaque commande de plus de $3 soutient les secours palestiniens et les mosquées dans le besoin.'],
+    ['Navigation','Navigation'],['Support','Assistance'],
+    ['Contact for Ideas: contact.dawahpioneer@gmail.com','Contact pour vos idées : contact.dawahpioneer@gmail.com'],
+    ['Refund policy: all sales final','Remboursement : toutes les ventes sont finales'],
+    ['© 2026 Dawah Pioneer Books. All rights reserved.','© 2026 Dawah Pioneer Books. Tous droits réservés.'],
+    ['Translations and reminders are presented in paraphrase, for educational purposes.','Traductions et rappels présentés en paraphrase, à visée éducative.'],
+    // cart
+    ['Your cart','Votre panier'],['Your cart is empty for now.','Votre panier est vide pour l\'instant.'],['Your cart is empty','Votre panier est vide'],
+    ['Total','Total'],['remove','retirer'],
+    ['of this order (1/3) will be donated to Palestinian relief and Mosques 🕌','de cette commande (1/3) sera reversé aux secours palestiniens et aux mosquées 🕌'],
+    ['🇨🇦 Payment via Interac e-Transfer (Canada only)','🇨🇦 Paiement par virement Interac (Canada seulement)'],
+    ['Proceed to Payment','Passer au paiement'],
+    ['All sales are final — no refunds once your ebook has been delivered.','Toutes les ventes sont finales — aucun remboursement une fois l\'ebook livré.']
+  ].forEach(function(p){ if(p[0] !== p[1]) D[norm(p[0])] = p[1]; });
+  D[norm(BOOK_OF_THE_MONTH.note)] = BOOK_OF_THE_MONTH.noteFr;
+  D['Dawah Pioneer Books — Ebooks for $3'] = 'Dawah Pioneer Books — Ebooks à $3';
+
+  var rules = [
+    [/^"(.*)" added — (\$\d+)$/, function(m){ return '« ' + m[1] + ' » ajouté — ' + m[2]; }],
+    [/^⭐ Book of the Month — .*$/, function(){
+      var m = new Date().toLocaleString('fr-FR', { month:'long', year:'numeric' });
+      return '⭐ Livre du mois — ' + m.charAt(0).toUpperCase() + m.slice(1);
+    }]
+  ];
+  function lookup(key){
+    if(Object.prototype.hasOwnProperty.call(D, key)) return D[key];
+    for(var i = 0; i < rules.length; i++){
+      var m = key.match(rules[i][0]);
+      if(m) return rules[i][1](m);
+    }
+    return null;
+  }
+
+  var originals = new WeakMap();
+  var lang = 'en';
+  var originalTitle = document.title;
+
+  function tNode(n){
+    var raw = n.nodeValue, key = norm(raw);
+    if(!key) return;
+    var fr = lookup(key);
+    if(fr == null) return;
+    var out = raw.match(/^\s*/)[0] + fr + raw.match(/\s*$/)[0];
+    if(out === raw) return;
+    if(!originals.has(n)) originals.set(n, raw);
+    n.nodeValue = out;
+  }
+  function eachText(root, fn){
+    if(root.nodeType === 3){ fn(root); return; }
+    if(root.nodeType !== 1) return;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(n){
+        var p = n.parentNode && n.parentNode.nodeName;
+        return (p === 'SCRIPT' || p === 'STYLE') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var n; while((n = w.nextNode())) fn(n);
+  }
+  function revert(n){
+    if(originals.has(n)){ n.nodeValue = originals.get(n); originals.delete(n); }
+  }
+
+  new MutationObserver(function(muts){
+    if(lang !== 'fr') return;
+    muts.forEach(function(m){
+      if(m.type === 'characterData') tNode(m.target);
+      m.addedNodes.forEach(function(n){ eachText(n, tNode); });
+    });
+  }).observe(document.body, { childList:true, subtree:true, characterData:true });
+
+  /* toggle button, placed next to the cart button */
+  var cartBtn = document.getElementById('open-cart');
+  var actions = document.createElement('div');
+  actions.className = 'nav-actions';
+  var langBtn = document.createElement('button');
+  langBtn.className = 'lang-btn';
+  langBtn.type = 'button';
+  cartBtn.parentNode.insertBefore(actions, cartBtn);
+  actions.appendChild(langBtn);
+  actions.appendChild(cartBtn);
+
+  function setLang(l, save){
+    lang = l;
+    document.documentElement.lang = l;
+    if(l === 'fr'){
+      eachText(document.body, tNode);
+      document.title = lookup(originalTitle) || originalTitle;
+      langBtn.textContent = 'EN';
+      langBtn.setAttribute('aria-label', 'Switch to English');
+    } else {
+      eachText(document.body, revert);
+      document.title = originalTitle;
+      langBtn.textContent = 'FR';
+      langBtn.setAttribute('aria-label', 'Passer en français');
+    }
+    if(save){ try{ localStorage.setItem('dpb_lang', l); }catch(e){} }
+  }
+  langBtn.addEventListener('click', function(){ setLang(lang === 'fr' ? 'en' : 'fr', true); });
+
+  var saved = null;
+  try{ saved = localStorage.getItem('dpb_lang'); }catch(e){}
+  var startFr = saved ? saved === 'fr' : /^fr/i.test(navigator.language || '');
+  setLang(startFr ? 'fr' : 'en', false);
+})();
+</script>
 </body>
 </html>
