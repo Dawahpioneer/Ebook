@@ -820,7 +820,7 @@
 
 <script>
   const books = [
-    { id:'b1', title:"Entire Pack", cat:"Pack", desc:"You can the 7 Ebooks for a really good price of only 20$", price:20, isNew:true, isReedition:false },
+    { id:'b1', title:"Entire Pack", cat:"Pack", desc:"You can get the 7 Ebooks for a really good price of only 20$", price:20, isNew:true, isReedition:false },
     { id:'b2', title:"Link between Quran and History part 1", cat:"Fictive story", desc:"Fictive story adapted to muslim people. A conspiracy want to destroy the World but 1 man will stop it. ", price:4, isNew:false, isReedition:true },
     { id:'b3', title:"Fiqh Maliki", cat:"Fiqh", desc:"Explain how Maliki madhab was made. ", price:2, isNew:false, isReedition:true },
     { id:'b4', title:"The body", cat:"Science", desc:"It's a book about science and the body. Make you understand the precision of how Allah created it", price:4, isNew:false, isReedition:true },
@@ -887,7 +887,7 @@
     const total = cart.reduce((s,b)=> s + b.price, 0);
     totalEl.textContent = `$${total}`;
 
-    if(total > 3){
+    if(total > 4){
       const donation = (total / 3);
       donationAmount.textContent = `$${donation.toFixed(2)}`;
       donationNote.classList.add('show');
@@ -968,10 +968,10 @@
   var Best_Offer = {
     id: 'b1',
     note: 'Our best price of the year - A pack of 7 Ebooks for only 20$',
-    noteFr: 'Notre meilleur prix de l'année - A paquet de 7 Ebooks pour seulement 20$.'
+    noteFr: 'Notre meilleur prix de l\'année - A paquet de 7 Ebooks pour seulement 20$.'
   };
 
-  var book = books.find(function(b){ return b.id === Best_Offer.id; });
+  var book = books.find(function(b){ return b.id === BEST_OFFER.id; });
   if(book){
     var banner = document.createElement('div');
     banner.className = 'botm';
@@ -990,8 +990,8 @@
         '</div>' +
       '</div>';
     document.querySelector('header').insertAdjacentElement('afterend', banner);
-    var month = new Date().toLocaleString('en-US', { month:'long', year:'numeric' });
-    document.getElementById('botm-label').textContent = '⭐ Best Offer of — ' + year;
+    var year = new Date().getFullYear();
+    document.getElementById('botm-label').textContent = '⭐ Best Offer of ' + year;
     document.getElementById('botm-title').textContent = book.title;
     document.getElementById('botm-desc').textContent = book.desc;
     document.getElementById('botm-note').textContent = BEST_OFFER.note;
@@ -1052,7 +1052,7 @@
     ['Explain a theory of cosmology according to Quran and Sunnah','Explique une théorie de cosmologie selon le Coran et la Sunna.'],
     ['Adapted to Muslim, the continuation of Link between Quran and History, a muslim hero attacked by everyone but realize what\'s Dunya','Adapté pour les musulmans, la suite de « Link between Quran and History » : un héros musulman attaqué par tous découvre ce qu\'est la Dunya.'],
     ['Explain how Allah create humanity and Universe','Explique comment Allah a créé l\'humanité et l\'univers.'],
-    ['You can the 7 Ebooks for a really good price of only 20$','Vous pouvez obtenir les 7 ebooks pour un prix vraiment avantageux de seulement 20 $'],
+    ['You can get the 7 Ebooks for a really good price of only 20$','Vous pouvez obtenir les 7 ebooks pour un prix vraiment avantageux de seulement 20 $'],
     // why
     ['Why this price, why now','Pourquoi ce prix, pourquoi maintenant'],
     ['$4 is the price of a coffee — for knowledge that stays with you','$4, c\'est le prix d\'un café — pour un savoir qui reste'],
@@ -1109,15 +1109,12 @@
     ['Proceed to Payment','Passer au paiement'],
     ['All sales are final — no refunds once your ebook has been delivered.','Toutes les ventes sont finales — aucun remboursement une fois l\'ebook livré.']
   ].forEach(function(p){ if(p[0] !== p[1]) D[norm(p[0])] = p[1]; });
-  D[norm(BOOK_OF_THE_MONTH.note)] = BOOK_OF_THE_MONTH.noteFr;
+    D[norm(BEST_OFFER.note)] = BEST_OFFER.noteFr;
   D['Dawah Pioneer Books — Ebooks for $4'] = 'Dawah Pioneer Books — Ebooks à $4';
 
   var rules = [
     [/^"(.*)" added — (\$\d+)$/, function(m){ return '« ' + m[1] + ' » ajouté — ' + m[2]; }],
-    [/^⭐ Book of the Month — .*$/, function(){
-      var m = new Date().toLocaleString('fr-FR', { month:'long', year:'numeric' });
-      return '⭐ Livre du mois — ' + m.charAt(0).toUpperCase() + m.slice(1);
-    }]
+    [/^⭐ Best Offer of (\d{4})$/, function(m){ return '⭐ Meilleure offre de ' + m[1]; }]
   ];
   function lookup(key){
     if(Object.prototype.hasOwnProperty.call(D, key)) return D[key];
