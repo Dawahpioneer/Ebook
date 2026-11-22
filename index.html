@@ -820,13 +820,14 @@
 
 <script>
   const books = [
-    { id:'b1', title:"Link between Quran and History part 1", cat:"Fictive story", desc:"Fictive story adapted to muslim people. A conspiracy want to destroy the World but 1 man will stop it. ", price:4, isNew:false, isReedition:true },
-    { id:'b2', title:"Fiqh Maliki", cat:"Fiqh", desc:"Explain how Maliki madhab was made. ", price:2, isNew:false, isReedition:true },
-    { id:'b3', title:"The body", cat:"Science", desc:"It's a book about science and the body. Make you understand the precision of how Allah created it", price:4, isNew:false, isReedition:true },
-    { id:'b4', title:"Western conspiracy", cat:"World problems", desc:"How to understand a world where muslims are being divided and attacked. ", price:4, isNew:false, isReedition:true },
-    { id:'b5', title:"Space theory", cat:"Science", desc:"Explain a theory of cosmology according to Quran and Sunnah", price:3, isNew:false, isReedition:true },
-    { id:'b6', title:"Link Between Quran and Dunya part 2", cat:"Fictive story", desc:"Adapted to Muslim, the continuation of Link between Quran and History, a muslim hero attacked by everyone but realize what's Dunya", price:4, isNew:true, isReedition:true },
-    { id:'b7', title:"The begining of Universe in Islam", cat:"Islamic science", desc:"Explain how Allah create humanity and Universe", price:3, isNew:true, isReedition:true },
+    { id:'b1', title:"Entire Pack", cat:"Pack", desc:"You can the 7 Ebooks for a really good price of only 20$", price:20, isNew:true, isReedition:false },
+    { id:'b2', title:"Link between Quran and History part 1", cat:"Fictive story", desc:"Fictive story adapted to muslim people. A conspiracy want to destroy the World but 1 man will stop it. ", price:4, isNew:false, isReedition:true },
+    { id:'b3', title:"Fiqh Maliki", cat:"Fiqh", desc:"Explain how Maliki madhab was made. ", price:2, isNew:false, isReedition:true },
+    { id:'b4', title:"The body", cat:"Science", desc:"It's a book about science and the body. Make you understand the precision of how Allah created it", price:4, isNew:false, isReedition:true },
+    { id:'b5', title:"Western conspiracy", cat:"World problems", desc:"How to understand a world where muslims are being divided and attacked. ", price:4, isNew:false, isReedition:true },
+    { id:'b6', title:"Space theory", cat:"Science", desc:"Explain a theory of cosmology according to Quran and Sunnah", price:3, isNew:false, isReedition:true },
+    { id:'b7', title:"Link Between Quran and Dunya part 2", cat:"Fictive story", desc:"Adapted to Muslim, the continuation of Link between Quran and History, a muslim hero attacked by everyone but realize what's Dunya", price:4, isNew:true, isReedition:true },
+    { id:'b8', title:"The begining of Universe in Islam", cat:"Islamic science", desc:"Explain how Allah create humanity and Universe", price:3, isNew:true, isReedition:true },
   ];
 
   const ayatMarquee = [
@@ -964,13 +965,13 @@
 <script>
 (function(){
   /* ---------- Book of the Month (change these each month) ---------- */
-  var BOOK_OF_THE_MONTH = {
+  var Best_Offer = {
     id: 'b1',
-    note: 'Our pick this month — a gripping story that connects the Quran to everyday life.',
-    noteFr: 'Notre coup de cœur du mois — un récit captivant qui relie le Coran à la vie de tous les jours.'
+    note: 'Our best price of the year - A pack of 7 Ebooks for only 20$',
+    noteFr: 'Notre meilleur prix de l'année - A paquet de 7 Ebooks pour seulement 20$.'
   };
 
-  var book = books.find(function(b){ return b.id === BOOK_OF_THE_MONTH.id; });
+  var book = books.find(function(b){ return b.id === Best_Offer.id; });
   if(book){
     var banner = document.createElement('div');
     banner.className = 'botm';
@@ -990,10 +991,10 @@
       '</div>';
     document.querySelector('header').insertAdjacentElement('afterend', banner);
     var month = new Date().toLocaleString('en-US', { month:'long', year:'numeric' });
-    document.getElementById('botm-label').textContent = '⭐ Book of the Month — ' + month;
+    document.getElementById('botm-label').textContent = '⭐ Best Offer of — ' + year;
     document.getElementById('botm-title').textContent = book.title;
     document.getElementById('botm-desc').textContent = book.desc;
-    document.getElementById('botm-note').textContent = BOOK_OF_THE_MONTH.note;
+    document.getElementById('botm-note').textContent = BEST_OFFER.note;
     document.getElementById('botm-price').textContent = '$' + book.price;
     var addBtn = document.getElementById('botm-add');
     addBtn.addEventListener('click', function(){
@@ -1043,7 +1044,7 @@
     ['Ebooks at $4, without cutting corners','Des ebooks à $4, sans compromis sur la qualité'],
     ['PDF and EPUB formats, delivered instantly by email after purchase. Remember: every order over $4 sends a third of the proceeds to Palestinian relief and Mosques.','Formats PDF et EPUB, livrés par email après l\'achat. Rappel : chaque commande de plus de $4 verse un tiers des recettes aux secours palestiniens et aux mosquées.'],
     ['Add to cart','Ajouter au panier'],['Added ✓','Ajouté ✓'],['NEW','NOUVEAU'],['Reedition','Réédition'],
-    ['Fictive story','Histoire fictive'],['World problems','Problèmes du monde'],['Islamic science','Sciences islamiques'],
+    ['Fictive story','Histoire fictive'],['World problems','Problèmes du monde'],['Islamic science','Sciences islamiques'],['Pack','Pack'],
     ['Fictive story adapted to muslim people. A conspiracy want to destroy the World but 1 man will stop it.','Récit fictif adapté au public musulman. Un complot veut détruire le monde, mais un seul homme l\'arrêtera.'],
     ['Explain how Maliki madhab was made.','Explique comment l\'école malikite (madhhab) s\'est constituée.'],
     ['It\'s a book about science and the body. Make you understand the precision of how Allah created it','Un livre de science sur le corps humain, qui fait comprendre la précision avec laquelle Allah l\'a créé.'],
@@ -1051,6 +1052,7 @@
     ['Explain a theory of cosmology according to Quran and Sunnah','Explique une théorie de cosmologie selon le Coran et la Sunna.'],
     ['Adapted to Muslim, the continuation of Link between Quran and History, a muslim hero attacked by everyone but realize what\'s Dunya','Adapté pour les musulmans, la suite de « Link between Quran and History » : un héros musulman attaqué par tous découvre ce qu\'est la Dunya.'],
     ['Explain how Allah create humanity and Universe','Explique comment Allah a créé l\'humanité et l\'univers.'],
+    ['You can the 7 Ebooks for a really good price of only 20$','Vous pouvez obtenir les 7 ebooks pour un prix vraiment avantageux de seulement 20 $'],
     // why
     ['Why this price, why now','Pourquoi ce prix, pourquoi maintenant'],
     ['$4 is the price of a coffee — for knowledge that stays with you','$4, c\'est le prix d\'un café — pour un savoir qui reste'],
